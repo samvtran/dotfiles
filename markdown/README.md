@@ -1,5 +1,7 @@
 # Markdown Niceties
 
+[Example Rendering](multimarkdown-example.html)
+
 ![](multimarkdown-example.jpg)
 
 ## gandalf.css
