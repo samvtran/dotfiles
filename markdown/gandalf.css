@@ -1,0 +1,255 @@
+:root {
+    --background-text-color: rgba(240, 240, 240, 1);
+    --base-text-color: rgba(69, 82, 96, 1);
+    --light-text-color: var(--base-text-color);
+    --title-text-color: rgba(61, 81, 109, 1);
+    --link-text-color: rgba(128, 57, 75, 1);
+    --accent-text-color: rgba(160, 76, 107, 1);
+    --insertion-point-color: rgba(148, 93, 86, 1);
+    --selected-text-background-color: rgba(213, 220, 232, 1);
+    --selected-text-inactive-background-color: rgba(227, 229, 236, 1);
+    --style-marker-text-color: rgba(180, 181, 187, 1);
+    --invalid-character-color: rgba(158, 65, 64, 1);
+    --map-text-color: rgba(11, 135, 23, 1);
+    --separator-text-color: rgba(195, 197, 204, 1);
+    --hashtag-text-color: rgba(255, 255, 255, 1);
+    --hashtag-marker-text-color: rgba(107, 112, 129, 1);
+    --hashtag-background-color: rgba(157, 167, 193, 1);
+    --hashtag-selected-background-color: rgba(119, 125, 143, 1);
+    --code-background-color: rgba(248, 247, 249, 1);
+    --code-stroke-color: rgba(200, 205, 218, 1);
+    --code-font-color: rgba(62, 74, 98, 1);
+
+    --header-decoration-position-right: calc(100% + 0.25rem);
+    --header-decoration-line-height: 1.5rem;
+
+    --base-text-size: 14px;
+    --base-line-height: 1.6;
+    --paragraph-line-height-multiplier: 1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Avenir Next";
+    font-size: var(--base-text-size);
+    background: var(--background-text-color);
+    -webkit-font-smoothing: unset;
+}
+
+#write, body {
+    color: var(--base-text-color);
+    padding: 1rem 2rem;
+    max-width: calc(500px + 4rem);
+    margin: auto;
+    line-height: var(--base-line-height);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--title-text-color);
+    position: relative;
+    margin-left: 1rem;
+}
+
+/* Keep things simple and target top-level headers for specialized */
+body > h1, body > h2, body > h3, body > h4, body > h5, body > h6,
+#write > h1, #write > h2, #write > h3, #write > h4, #write > h5, #write > h6 {
+    margin-left: 0;
+    --header-decoration-position-right: calc(100% + 0.75rem);
+}
+
+h1 {
+    font-size: 1.5rem;
+    --header-decoration-line-height: 2rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    --header-decoration-line-height: 2rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+}
+
+h4, h5, h6 {
+    font-size: 1rem;
+}
+
+h1::before,
+h2::before,
+h3::before,
+h4::before,
+h5::before,
+h6::before {
+    border-radius: 0;
+    bottom: 0;
+    color: var(--style-marker-text-color);
+    float: none;
+    font-size: 0.875rem;
+    font-variant: 'small-caps';
+    font-weight: 500;
+    left: auto;
+    line-height: var(--header-decoration-line-height);
+    padding: 0;
+    position: absolute;
+    right: var(--header-decoration-position-right);
+    vertical-align: baseline;
+}
+
+h1::before {
+    content: 'H1';
+}
+h2::before {
+    content: 'H2';
+}
+h3::before {
+    content: 'H3';
+}
+h4::before {
+    content: 'H4';
+}
+h5::before {
+    content: 'H5';
+}
+h6::before {
+    content: 'H6';
+}
+
+:not(pre) > code, pre:not(.CodeMirror-line) {
+    background: var(--code-background-color);
+    color: var(--code-font-color);
+    padding: 2px 4px;
+    border: 1px solid var(--code-stroke-color);
+    border-radius: 2px;
+}
+
+pre:not(.CodeMirror-line) {
+    padding: 0.25rem 0.75rem;
+    overflow: auto;
+}
+
+a {
+    color: var(--link-text-color);
+}
+
+ul, ol,
+#write ul, #write ol {
+    counter-reset: li;
+    list-style: none;
+    position: relative;
+}
+
+body > ul, body > ol,
+#write > ul, #write > ol {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+p {
+    line-height: calc(var(--base-line-height) * var(--paragraph-line-height-multiplier));
+}
+
+li {
+    position: relative;
+}
+
+li + li {
+    margin-top: 0.5rem;
+}
+
+ul li::before, ol li::before {
+    content: '\2022';
+    white-space: nowrap;
+    color: var(--accent-text-color);
+    display: block;
+    direction: rtl;
+    width: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    right: 100%;
+    top: 0;
+    margin-right: 0.75rem;
+    text-align: right;
+    font-weight: 600;
+    position: absolute;
+}
+
+ol > li {
+    counter-increment: li;
+}
+
+ol > li::before {
+    content: "."counter(li);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-right: 0.5rem;
+    color: var(--accent-text-color);
+}
+
+blockquote {
+    margin: 1rem 0;
+    border-left: 2px solid var(--accent-text-color);
+    padding-left: 1rem;
+}
+
+body > blockquote, #write > blockquote {
+    margin-left: -1rem;
+}
+
+table {
+    border: solid var(--accent-text-color);
+    border-width: 1px 0px;
+    empty-cells: hide;
+    border-spacing: 0px;
+    margin: 2rem auto;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 0;
+  }
+  table caption {
+    margin: 5px;
+    text-align: center;
+    caption-side: bottom;
+  }
+  tr {
+      line-height: 1.6;
+  }
+  thead th {
+    border: solid var(--accent-text-color);
+    border-width: 0 0 2px 0;
+    padding: 5px;
+  }
+  thead > tr:last-child > th { border-style: none; }
+  tbody > tr:first-child > td {
+    border: solid var(--accent-text-color);
+    border-width: 1px 0 0 0;
+  }
+  tbody > tr:first-child > th {
+    border: solid var(--accent-text-color);
+    border-width: 1px 0 0 0;
+  }
+  thead + tbody > tr:first-child > td {
+    border: solid var(--accent-text-color);
+    border-width: 1px 0 0 0;
+  }
+  thead + tbody > tr:first-child > th {
+    border: solid var(--accent-text-color);
+    border-width: 1px 0 0 0;
+  }
+  figure {
+    padding: 0px;
+    margin: 0px;
+  }
+
+.footnotes li:target p, .citations li:target p {
+    border: 1px solid var(--accent-text-color);
+    padding: 0 0.25rem;
+    border-radius: 2px;
+    background: #fff;
+    border-radius: 2px;
+}

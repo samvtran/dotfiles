@@ -1,0 +1,48 @@
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-rust \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-bin-gem-node
+
+### End of Zinit's installer chunk
+
+fpath+=~/.zfunc
+
+# G - colorized output using LSCOLORS from .zshenv
+# F - appends / to dirs, * to executables, | to pipes, @ after links
+# h - human readable sizes
+alias ls="ls -GFh"
+
+autoload -Uz bracketed-paste-url-magic
+zle -N bracketed-paste bracketed-paste-url-magic
+
+zstyle ':prezto:module:terminal' auto-title 'always'
+zstyle ':prezto:module:terminal:window-title' format '%n: %s'
+zstyle ':prezto:module:editor' key-bindings 'emacs'
+
+zinit wait lucid light-mode for \
+    atinit"zicompinit; zicdreplay" zdharma/fast-syntax-highlighting \
+    blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
+    as'completion' https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
+    as'completion' https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose \
+    PZT::modules/history/init.zsh \
+    PZT::modules/editor/init.zsh \
+    atload"_terminal-set-titles-with-path $(pwd)" PZT::modules/terminal/init.zsh \
+    PZT::modules/completion/init.zsh
+
+eval "$(starship init zsh)"
