@@ -35,13 +35,15 @@ zstyle ':prezto:module:terminal' auto-title 'always'
 zstyle ':prezto:module:terminal:window-title' format '%n: %s'
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 
+# Load the editor bindings immediately. Waiting will cause lots of bindkey issues on first interaction
+zinit light-mode for PZT::modules/editor/init.zsh
+
 zinit wait lucid light-mode for \
     atinit"zicompinit; zicdreplay" zdharma/fast-syntax-highlighting \
     blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
     as'completion' https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
     as'completion' https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose \
     PZT::modules/history/init.zsh \
-    PZT::modules/editor/init.zsh \
     atload"_terminal-set-titles-with-path $(pwd)" PZT::modules/terminal/init.zsh \
     PZT::modules/completion/init.zsh
 
